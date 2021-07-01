@@ -1,0 +1,131 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ポートフォリオサイト</title>
+<link rel="stylesheet" media="all" th:href="@{/css/ress.min.css}" />
+<link rel="stylesheet" media="all" th:href="@{/css/style.css}" />
+<script th:src="@{/js/jquery-2.1.4.min.js}"></script>
+<script th:src="@{/js/style.js}"></script>
+
+<!-- Favicon -->
+<link rel="icon" type="image/png" th:href="@{/img/favicon.png}">
+
+</head>
+<body>
+	<header>
+		<div class="container">
+			<div class="row">
+				<div class="col span-12">
+					<div class="head">
+						<h1>
+							<a th:href="@{/}">PORTFOLIO</a>
+						</h1>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col span-12">
+					<nav>
+						<div id="open">
+							<img th:src="@{/img/button.png}">
+						</div>
+						<div id="close">
+							<img th:src="@{/img/button2.png}">
+						</div>
+						<div id="navi">
+							<ul>
+								<li><a th:href="@{/}">ホーム</a></li>
+								<li><a th:href="@{/form}">お問い合わせ</a></li>
+								<li><a th:href="@{/item/create}">商品管理</a></li>
+								<li><a th:href="@{/item/list}">商品一覧</a></li>
+							</ul>
+						</div>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</header>
+	<div class="mainimg">
+		<img th:src="@{/img/subimg.jpg}" alt="お問い合わせ画像">
+	</div>
+	<main>
+		<article>
+			<div class="container">
+				<div class="row">
+					<div class="col span-12">
+						<div class="breadcrumb">
+							<ul>
+								<li><a th:href="@{/demo}">ホーム</a> > <a th:href="@{/item/list}">商品一覧</a> > 削除</li>
+							</ul>
+						</div>
+						<th:block th:if="message != null">
+							<h2 th:class="msg" th:text="${message}"></h2>
+						</th:block>
+						<h2 class="underline">商品削除</h2>
+				
+						<form th:action="@{/item/deleteConfirm}" th:object="${itemForm}"
+							method="post">	
+							<p>
+								<label for="id">商品番号</label> <input 
+									type="number" id="id" name="id" maxlength="10" value="${itemForm.id}"
+									th:field="*{id}" > <span
+									th:if="${#fields.hasErrors('id')}" th:errors="*{id}"
+									th:class="msg"></span>
+							</p>					
+							<p>
+								<label for="name">商品名</label> <input class="full-width"
+									type="text" id="name" name="name" maxlength="10" value="${itemForm.name}"　
+									th:field="*{name}" readonly="readonly"> <span
+									th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
+									th:class="msg"></span>
+							</p>
+							<p>
+								<label for="price">商品単価(円)</label> <input 
+									type="number" id="price" name="price" value="${itemForm.price}"　
+									th:field="*{price}" readonly="readonly"> <span
+									th:if="${#fields.hasErrors('price')}" th:errors="*{price}"
+									th:class="msg"></span>
+							</p>
+							<p>
+								<label for="numbers">商品個数</label> <input 
+									type="number" id="numbers" name="numbers" value="${itemForm.numbers}"
+									th:field="*{numbers}" readonly="readonly"> <span
+									th:if="${#fields.hasErrors('numbers')}" th:errors="*{numbers}"
+									th:class="msg"></span>
+							</p>
+							<p>
+								<label for="message">商品説明</label>
+								<textarea class="full-width" id="content" name="content" value="${itemForm.content}"
+									th:field="*{content}" readonly="readonly"></textarea>
+								<span th:if="${#fields.hasErrors('content')}"
+									th:errors="*{content}" th:class="msg"></span>
+							</p>
+							<h5>この商品を削除しますか？</h5>
+							<p>
+								<input class="button" type="submit" th:formaction="@{/item/delete}" value="削除">
+						</form>
+								<a th:href="@{/}">削除せずにホームへ</a>
+							</p>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+	<footer>
+		<div class="container">
+			<div class="row">
+				<div class="col span-12">
+					<h5>お知らせ</h5>
+					<p>電話での問合せは承っておりません。</p>
+					<p>回答にお時間頂くことがございます。予めご了承ください。</p>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<p id="pagetop">
+		<a href="#">TOP</a>
+	</p>
+</body>
+</html>
